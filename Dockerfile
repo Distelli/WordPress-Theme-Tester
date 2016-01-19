@@ -20,10 +20,7 @@ RUN apt-get update && \
 		apt-get install -y php5-fpm \
 		php5-mysql \
 		nginx && \
-		echo \
-		'debconf-set-selections <<< "mysql-server mysql-server/root_password password ${MYSQL_ROOT_PASSWORD}"'
-		'debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${MYSQL_ROOT_PASSWORD}"'
-		'apt-get -y install mysql-server'
+		apt-get -y install mysql-server
 
 VOLUME /var/lib/mysql
 
