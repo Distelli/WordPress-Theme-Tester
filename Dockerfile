@@ -6,7 +6,7 @@ FROM debian:jessie
 
 # Adding placeholder environment variables
 # Set these environment variables in your Distelli application, both in Build Variables and Env Vars
-# Pass the environment variables in the docker run command
+# Pass the environment variables in the `docker run` command
 
 # ENV MYSQL_ROOT_PASSWORD $MYSQL_ROOT_PASSWORD
 # ENV DB_NAME $DB_NAME
@@ -21,19 +21,18 @@ FROM debian:jessie
 RUN	apt-get update && \
 			apt-get install -y php5-fpm \
 			php5-mysql \
-			nginx
-
-# Installing mysql in non-interactive mode
-# Note that this leads to the root password being blank: you’ll need to initialize the database when you start the container
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
+			nginx && \
+			echo \
+			'debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"'
+			'debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"'
+			'apt-get -y install mysql-server'
 
 VOLUME /var/lib/mysql
 
 # Adding WordPress
 # Assumes that in the PreBuild steps, you've downloaded wordpress to a folder called wp-download
 
-COPY ./wp-download /usr/share/nginx/html
+COPY ./wp-download/* /usr/share/nginx/html
 
 # Setting up WordPress
 RUN sed -i 's/database_name_here/'$DB_NAME'/g' /usr/share/nginx/html/wp-config-sample.php && \
