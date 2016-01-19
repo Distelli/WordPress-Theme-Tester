@@ -31,9 +31,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
 VOLUME /var/lib/mysql
 
 # Adding WordPress
-# Assumes that in the PreBuild steps, you've downloaded wordpress to a folder called wp-download
+# Assumes that in the PreBuild steps, you've downloaded and decompressed the latest wordpress. When you decompress, the files are in a folder called `wordpress`
 
-COPY ./wp-download/* /usr/share/nginx/html
+COPY ./wordpress/ /usr/share/nginx/html
 
 # Setting up WordPress
 RUN sed -i 's/database_name_here/'"$DB_NAME"'/g' /usr/share/nginx/html/wp-config-sample.php && \
