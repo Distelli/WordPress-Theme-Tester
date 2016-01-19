@@ -5,22 +5,27 @@
 FROM debian:jessie
 
 # Adding placeholder environment variables
-# Define the environment variables in the `docker run` command
-ENV ${MYSQL_ROOT_PASSWORD} temp-rootpasswd
-ENV ${DB_NAME} temp-dbname
-ENV ${DB_USER_NAME} temp-username
-ENV ${DB_USER_PASSWORD} temp-userpasswd
+# Set these environment variables in your Distelli application, both in Build Variables and Env Vars
+# Pass the environment variables in the `docker run` command
+
+# ENV MYSQL_ROOT_PASSWORD $MYSQL_ROOT_PASSWORD
+# ENV DB_NAME $DB_NAME
+# ENV DB_USER_NAME $DB_USER_NAME
+# ENV DB_USER_PASSWORD $DB_USER_PASSWORD
 
 # Installing nginx and PHP
 # To minimize the number of layers, chain the commands using &&
 # For readability, use \ and create a new line for every package
 # To save the MySQL database, in the docker run command, mount a local directory to /var/lib/mysql in the container
 
-# RUN apt-get update
-RUN sudo apt-get install -y php5-fpm
-RUN	apt-get install -y 	php5-mysql
-RUN	apt-get install -y nginx
-RUN apt-get install -y mysql-server
+RUN	apt-get update && \
+			apt-get install -y php5-fpm \
+			php5-mysql \
+			nginx \
+			echo \
+			'debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"'
+			'debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"'
+			'apt-get -y install mysql-server'
 
 VOLUME /var/lib/mysql
 
