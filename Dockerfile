@@ -36,8 +36,8 @@ VOLUME /var/lib/mysql
 COPY ./wp-download/* /usr/share/nginx/html
 
 # Setting up WordPress
-RUN sed -i 's/database_name_here/'$DB_NAME'/g' /usr/share/nginx/html/wp-config-sample.php && \
-		sed -i 's/username_here/'$DB_USER_NAME'/g' /usr/share/nginx/html/wp-config-sample.php && \
+RUN sed -i 's/database_name_here/'"$DB_NAME"'/g' /usr/share/nginx/html/wp-config-sample.php && \
+		sed -i 's/username_here/'"$DB_USER_NAME"'/g' /usr/share/nginx/html/wp-config-sample.php && \
     sed -i 's/password_here/'$DB_USER_PASSWORD'/g'/usr/share/nginx/html/wp-config-sample.php && \
     cp /usr/share/nginx/html/wp-config-sample.php /usr/share/nginx/html/wp-config.php && \
     chmod 640 /usr/share/nginx/html/wp-config.php && \
