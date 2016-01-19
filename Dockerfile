@@ -14,24 +14,21 @@ ENV ${DB_USER_PASSWORD} temp-userpasswd
 # Installing nginx and PHP
 # To minimize the number of layers, chain the commands using &&
 # For readability, use \ and create a new line for every package
+# To save the MySQL database, in the docker run command, mount a local directory to /var/lib/mysql in the container
 
 RUN apt-get update && \
 		apt-get install -y php5-fpm \
 		php5-mysql \
-		nginx
-
-# Installing MySQL
-# To save the MySQL database, in the docker run command, mount a local directory to /var/lib/mysql in the container
-
-RUN echo \
-		'debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"'
-		'debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"'
+		nginx && \
+		echo \
+		'debconf-set-selections <<< "mysql-server mysql-server/root_password password ${MYSQL_ROOT_PASSWORD}"'
+		'debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${MYSQL_ROOT_PASSWORD}"'
 		'apt-get -y install mysql-server'
 
 VOLUME /var/lib/mysql
 
 # Adding WordPress
-# assumes that in the PreBuild steps, you've downloaded wordpress to a folder called wp-download
+# Assumes that in the PreBuild steps, you've downloaded wordpress to a folder called wp-download
 
 COPY ./wp-download /usr/share/nginx/html
 
