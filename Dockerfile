@@ -16,9 +16,9 @@ ENV ${DB_USER_PASSWORD} temp-userpasswd
 # For readability, use \ and create a new line for every package
 # To save the MySQL database, in the docker run command, mount a local directory to /var/lib/mysql in the container
 
-RUN apt-get update
+RUN apt-get update -y
 RUN apt-get install -y php5-fpm
-RUN	apt-get install -y php5-mysql
+RUN	apt-get install -y 	php5-mysql
 RUN	apt-get install -y nginx
 RUN apt-get install -y mysql-server
 
