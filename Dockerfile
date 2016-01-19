@@ -21,8 +21,9 @@ FROM debian:jessie
 RUN	apt-get update && \
 			apt-get install -y php5-fpm \
 			php5-mysql \
-			nginx && \
-			echo \
+			nginx
+
+RUN	echo \
 			'debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"'
 			'debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"'
 			'apt-get -y install mysql-server'
