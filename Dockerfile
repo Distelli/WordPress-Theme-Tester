@@ -19,8 +19,8 @@ ENV ${DB_USER_PASSWORD} temp-userpasswd
 RUN apt-get update && \
 		apt-get install -y php5-fpm \
 		php5-mysql \
-		nginx \
-		mysql-server
+		nginx #\
+		#mysql-server
 
 VOLUME /var/lib/mysql
 
