@@ -23,10 +23,10 @@ RUN	apt-get update && \
 			php5-mysql \
 			nginx
 
-RUN	echo \
-			'debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"'
-			'debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"'
-			'apt-get -y install mysql-server'
+# Installing mysql in non-interactive mode
+# Note that this leads to the root password being blank: you’ll need to initialize the database when you start the container
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
 
 VOLUME /var/lib/mysql
 
