@@ -4,15 +4,6 @@
 
 FROM debian:jessie
 
-# Adding placeholder environment variables
-# Set these environment variables in your Distelli application, both in Build Variables and Env Vars
-# Pass the environment variables in the `docker run` command
-
-# ENV MYSQL_ROOT_PASSWORD $MYSQL_ROOT_PASSWORD
-# ENV DB_NAME $DB_NAME
-# ENV DB_USER_NAME $DB_USER_NAME
-# ENV DB_USER_PASSWORD $DB_USER_PASSWORD
-
 # Installing nginx and PHP
 # To minimize the number of layers, chain the commands using &&
 # For readability, use \ and create a new line for every package
@@ -23,28 +14,14 @@ RUN	apt-get update && \
 			php5-mysql \
 			nginx
 
-# Installing mysql in non-interactive mode
-# Note that this leads to the root password being blank: you’ll need to initialize the database when you start the container
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
-
-VOLUME /var/lib/mysql
-
-# Adding WordPress
-# Assumes that in the PreBuild steps, you've downloaded and decompressed the latest wordpress. When you decompress, the files are in a folder called `wordpress`
-
 COPY ./wordpress/ /usr/share/nginx/html
+COPY ./my-theme/ /usr/share/nginx/html/wp-theme #tbd: verify
 
 # Setting up WordPress
-RUN	sed -i "s/database_name_here/$DB_NAME/g" /usr/share/nginx/html/wp-config-sample.php && \
-		sed -i "s/username_here/$DB_USER_NAME/g" /usr/share/nginx/html/wp-config-sample.php && \
-    sed -i "s/password_here/$DB_USER_PASSWORD/g" /usr/share/nginx/html/wp-config-sample.php && \
-    cp /usr/share/nginx/html/wp-config-sample.php /usr/share/nginx/html/wp-config.php && \
-    chmod 640 /usr/share/nginx/html/wp-config.php && \
+# Seting www-data as the owner of the wp-config file
+RUN	chmod 640 /usr/share/nginx/html/wp-config.php && \
     chown www-data:www-data /usr/share/nginx/html/wp-config.php
 
 # Skipping entrypoint for now
-# Put all of these into a run script, maybe?
-CMD mysql -u root -p$MYSQL_ROOT_PASSWORD -e 'CREATE DATABASE IF NOT EXISTS '$DB_NAME'; GRANT ALL PRIVILEGES ON '$DB_NAME'.* TO '$DB_USER_NAME' IDENTIFIED BY "'$DB_USER_PASSWORD'"'
 
-CMD service nginx restart
+CMD ["service","nginx","restart"]
