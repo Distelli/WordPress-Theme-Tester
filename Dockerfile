@@ -16,7 +16,7 @@ RUN	chmod 640 /usr/share/nginx/html/wp-config.php && \
     chown www-data:www-data /usr/share/nginx/html/wp-config.php
 
 # Entrypoint
-ENTRYPOINT ["/bin/bash"]
+# ENTRYPOINT ["/bin/bash"]
 
 # Starting nginx
-CMD ["service","nginx","restart"]
+CMD service nginx start
