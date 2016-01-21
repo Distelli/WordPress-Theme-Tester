@@ -6,7 +6,7 @@ FROM debian:jessie
 
 RUN	apt-get update && \
 			apt-get install -y php5 \
-			php5-cgi
+			php5-cgi \
 			php5-mysql \
 			nginx
 
