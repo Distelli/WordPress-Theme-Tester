@@ -6,7 +6,7 @@ FROM debian:jessie
 
 RUN	apt-get update && \
 			apt-get install -y php5 \
-			php5-cgi \
+			php5-fpm \
 			php5-mysql \
 			nginx
 
@@ -24,5 +24,8 @@ RUN	rm /usr/share/nginx/html/index.html && \
 # Making the container’s port 80 available to the host
 EXPOSE 80
 
+# Entrypoint
+ENTRYPOINT [/bin/bash]
+
 # Starting nginx
-CMD nginx -g 'daemon off;'
+CMD service php5-fpm start && nginx -g 'daemon off;'
