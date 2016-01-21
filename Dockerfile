@@ -24,8 +24,5 @@ RUN	rm /usr/share/nginx/html/index.html && \
 # Making the container’s port 80 available to the host
 EXPOSE 80
 
-# Entrypoint
-ENTRYPOINT [/bin/bash]
-
-# Starting nginx
+# Starting nginx and PHP
 CMD service php5-fpm start && nginx -g 'daemon off;'
