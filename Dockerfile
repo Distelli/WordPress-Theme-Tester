@@ -5,15 +5,15 @@ FROM debian:jessie
 # To minimize the number of layers, chain the commands using &&
 
 RUN	apt-get update && \
-			apt-get install -y php5-fpm \
+			apt-get install -y php5 \
 			php5-mysql \
 			nginx
 
-# Replace the nginx default site with the one we created
-COPY default-nginx /etc/nginx/sites-enabled/default
-
 # Copy the WordPress files
 COPY ./wordpress/ /usr/share/nginx/html
+
+# Replace the nginx default site with the one we created
+COPY default-nginx /etc/nginx/sites-enabled/default
 
 # Remove the nginx default HTML file, and setting ownership to www-data
 RUN	rm /usr/share/nginx/html/index.html && \
