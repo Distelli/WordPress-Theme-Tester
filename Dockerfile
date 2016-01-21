@@ -9,6 +9,10 @@ RUN	apt-get update && \
 			php5-mysql \
 			nginx
 
+# Replace the nginx default site with the one we created
+COPY default-nginx /etc/nginx/sites-enabled/default
+
+# Copy the WordPress files
 COPY ./wordpress/ /usr/share/nginx/html
 
 # Set ownership to www-data
@@ -17,6 +21,8 @@ RUN	chmod 640 /usr/share/nginx/html/wp-config.php && \
 
 # Entrypoint
 # ENTRYPOINT ["/bin/bash"]
+
+EXPOSE 80
 
 # Starting nginx
 CMD nginx -g 'daemon off;'
