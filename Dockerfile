@@ -19,4 +19,4 @@ RUN	chmod 640 /usr/share/nginx/html/wp-config.php && \
 # ENTRYPOINT ["/bin/bash"]
 
 # Starting nginx
-CMD service nginx start
+CMD nginx -g 'daemon off;'
