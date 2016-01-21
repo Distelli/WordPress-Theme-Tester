@@ -15,13 +15,12 @@ COPY default-nginx /etc/nginx/sites-enabled/default
 # Copy the WordPress files
 COPY ./wordpress/ /usr/share/nginx/html
 
-# Set ownership to www-data
-RUN	chmod 640 /usr/share/nginx/html/wp-config.php && \
-    chown www-data:www-data /usr/share/nginx/html/wp-config.php
+# Remove the nginx default HTML file, and setting ownership to www-data
+RUN	rm /usr/share/nginx/html/index.html && \
+			chmod 640 /usr/share/nginx/html/wp-config.php && \
+			chown www-data:www-data /usr/share/nginx/html/wp-config.php
 
-# Entrypoint
-# ENTRYPOINT ["/bin/bash"]
-
+# Making the container’s port 80 available to the host
 EXPOSE 80
 
 # Starting nginx
