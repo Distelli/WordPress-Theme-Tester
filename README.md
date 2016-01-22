@@ -3,7 +3,7 @@
 For a full tutorial, see [tutorial link].
 
 ## Distelli Build Steps
-Put the following in your Distelli build steps, in the "Build" section:
+Put the following in your Distelli build steps, in the `Build` section:
 
 ```
 # download and extract the latest wordpress (contents extract to a folder called wordpress)
@@ -32,7 +32,7 @@ docker push "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
 ```
 
 ## Distelli Deployment Steps
-Put the following in your Distelli deployment steps, in the "Exec" section:
+Put the following in your Distelli deployment steps, in the `Exec` section:
 
 ```
 sudo docker run $DISTELLI_DOCKER_PORTS --rm=true \
