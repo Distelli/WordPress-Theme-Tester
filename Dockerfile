@@ -16,10 +16,8 @@ COPY ./wordpress/ /usr/share/nginx/html
 # Replace the nginx default site with the one we created
 COPY default-nginx /etc/nginx/sites-enabled/default
 
-# Remove the nginx default HTML file, and setting ownership to www-data
-RUN	rm /usr/share/nginx/html/index.html && \
-			chmod 640 /usr/share/nginx/html/wp-config.php && \
-			chown www-data:www-data /usr/share/nginx/html/wp-config.php
+# Remove the nginx default HTML file
+RUN	rm /usr/share/nginx/html/index.html
 
 # Making the container’s port 80 available to the host
 EXPOSE 80

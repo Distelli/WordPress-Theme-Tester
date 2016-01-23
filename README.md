@@ -6,12 +6,12 @@ For a full tutorial, see [tutorial link].
 Put the following in your Distelli build steps, in the `Build` section:
 
 ```
-# download and extract the latest wordpress (contents extract to a folder called wordpress)
+# download and extract the latest wordpress
 wget https://wordpress.org/latest.tar.gz
 sudo tar -zxvf latest.tar.gz
 
 # replacing WordPress's default placeholders with environment variables
-# Define the environment variables in your Distelli environment, and pass them to the Docker container in the `docker run` command
+# Define the environment variables in your Distelli environment
 # You can also use this section to add your WordPress auth key, and so on
 sudo sed -i 's/database_name_here/\$WP_DB_NAME/g' ./wordpress/wp-config-sample.php
 sudo sed -i 's/username_here/\$WP_DB_USER_NAME/g' ./wordpress/wp-config-sample.php
