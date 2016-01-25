@@ -32,6 +32,7 @@ docker push "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
 ```
 
 ## Environment Variables
+In your Distelli environment, add the following environment variables:
 ```
 MYSQL_HOST=put_your_mysql_hostname_here
 WP_DB_NAME=put_your_wordpressdb_name_here
