@@ -31,6 +31,14 @@ docker push "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
 ### End Docker Build Commands ###
 ```
 
+## Environment Variables
+```
+MYSQL_HOST=put_your_mysql_hostname_here
+WP_DB_NAME=put_your_wordpressdb_name_here
+WP_DB_USER_NAME=put_your_wordpressdb_username_here
+WP_DB_USER_PASSWORD=put_your_wordpressdb_password_here
+```
+
 ## Distelli Deployment Steps
 Put the following in your Distelli deployment steps, in the `Exec` section:
 
