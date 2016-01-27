@@ -7,7 +7,7 @@ FROM debian:jessie
 RUN	apt-get update && \
 			apt-get install -y php5 \
 			php5-fpm \
-			php5-mysql \
+			php5-mysqlnd \
 			nginx
 
 # Copy the WordPress files
