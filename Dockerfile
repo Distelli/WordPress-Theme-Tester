@@ -10,20 +10,23 @@ RUN	apt-get update && \
 			php5-mysqlnd \
 			nginx
 
+# Making the container’s port 80 available to the host
+EXPOSE 80
+
 # Copy the WordPress files
 COPY ./wordpress/ /usr/share/nginx/html
 
 # Replace the nginx default site with the one we created
 COPY default-nginx /etc/nginx/sites-enabled/default
 
-# Replace the default PHP5-FPM config with one that we created, which passes the environment variables
-COPY www.conf /etc/php5/fpm/pool.d/www.conf
-
 # Remove the nginx default HTML file
 RUN	rm /usr/share/nginx/html/index.html
 
-# Making the container’s port 80 available to the host
-EXPOSE 80
+# Run all subsequent commands as www-data
+USER www-data
+
+# Replace the default PHP5-FPM config with one that we created, which passes the environment variables
+COPY www.conf /etc/php5/fpm/pool.d/www.conf
 
 # Starting Nginx and PHP
 # We’re running Nginx in the foreground, so the container stays running
