@@ -2,6 +2,8 @@
 
 For a full tutorial, see [tutorial link].
 
+**Disclaimer**: This project is a proof of concept, and not an official Distelli application.
+
 ## Distelli Build Steps
 Put the following in your Distelli build steps, in the `Build` section:
 
@@ -44,12 +46,6 @@ WP_DB_USER_PASSWORD=put_your_wordpressdb_password_here
 Put the following in your Distelli deployment steps, in the `Exec` section:
 
 ```
-sudo docker run $DISTELLI_DOCKER_PORTS --rm=true \
--e MYSQL_HOST \
--e MYSQL_ROOT_PASSWORD \
--e WP_DB_NAME \
--e WP_DB_USER_NAME \
--e WP_DB_USER_PASSWORD \
--e WP_AUTH_KEY \
-"$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
+# Note: Distelli environment variables are available only during the deploy script, so you must use -e VAR=$DISTELLI_ENV_VAR to pass environment variables to the Docker container
+sudo docker run -p 8081:80 --rm=true -e MYSQL_HOST=$MYSQL_HOST -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD -e WP_DB_NAME=$WP_DB_NAME -e WP_DB_USER_NAME=$WP_DB_USER_NAME -e WP_DB_USER_PASSWORD=$WP_DB_USER_PASSWORD -e WP_AUTH_KEY=$WP_AUTH_KEY "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
 ```
