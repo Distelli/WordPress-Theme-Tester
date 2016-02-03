@@ -44,7 +44,6 @@ server {
 	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
 		include fastcgi_params;
-		fastcgi_param WP_DB_NAME $WP_DB_NAME;
 	#
 	#	# With php5-cgi alone:
 	#	fastcgi_pass 127.0.0.1:9000;
