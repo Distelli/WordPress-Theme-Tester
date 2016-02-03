@@ -23,7 +23,8 @@ COPY www.conf /etc/php5/fpm/pool.d/www.conf
 # Also letting www-data own the php conf
 RUN	rm /usr/share/nginx/html/index.html && \
 			sed -i 's/"GPCS"/"EGPCS"/g' /etc/php5/fpm/php.ini && \
-			chown www-data:www-data /etc/php5/fpm/pool.d/www.conf
+			chown www-data:www-data /etc/php5/fpm/pool.d/www.conf && \
+			chown -R /usr/share/nginx/html
 
 # Making the container’s port 80 available to the host
 EXPOSE 80
