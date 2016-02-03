@@ -17,13 +17,12 @@ COPY ./wordpress/ /usr/share/nginx/html
 COPY default-nginx /etc/nginx/sites-enabled/default
 
 # Replace the default PHP5-FPM config with one that we created, which passes the environment variables
-COPY www.conf /etc/php5/fpm/pool.d/www.conf
+#COPY www.conf /etc/php5/fpm/pool.d/www.conf
 
 # Remove the nginx default HTML file and telling php.ini to check environment variables
-# Also letting www-data own the php conf
-RUN	rm /usr/share/nginx/html/index.html && \
-			sed -i 's/"GPCS"/"EGPCS"/g' /etc/php5/fpm/php.ini && \
-			chown www-data:www-data /etc/php5/fpm/pool.d/www.conf
+#RUN	rm /usr/share/nginx/html/index.html && \
+#			sed -i 's/"GPCS"/"EGPCS"/g' /etc/php5/fpm/php.ini && \
+
 
 # Making the container’s port 80 available to the host
 EXPOSE 80
