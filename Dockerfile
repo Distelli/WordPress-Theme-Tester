@@ -18,8 +18,7 @@ COPY default-nginx /etc/nginx/sites-enabled/default
 
 # Remove the nginx default HTML file and telling php.ini to check environment variables
 RUN	rm /usr/share/nginx/html/index.html && \
-			sed -i 's/"GPCS"/"EGPCS"/g' /etc/php5/fpm/php.ini && \
-
+			sed -i 's/"GPCS"/"EGPCS"/g' /etc/php5/fpm/php.ini
 
 # Making the container’s port 80 available to the host
 EXPOSE 80
