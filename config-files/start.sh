@@ -4,8 +4,8 @@ set -x
 # In PHP's www.conf, replace placeholders with actual environment variables
 sed -i "s/\$MYSQL_HOST/$MYSQL_HOST/g" /config-files/www.conf
 sed -i "s/\$WP_DB_NAME/$WP_DB_NAME/g" /config-files/www.conf
-sed -i "s/\$WP_DB_NAME/$WP_DB_USER_NAME/g" /config-files/www.conf
-sed -i "s/\$WP_DB_NAME/$WP_DB_USER_PASSWORD/g" /config-files/www.conf
+sed -i "s/\$WP_DB_USER_NAME/$WP_DB_USER_NAME/g" /config-files/www.conf
+sed -i "s/\$WP_DB_USER_PASSWORD/$WP_DB_USER_PASSWORD/g" /config-files/www.conf
 
 # Replace the default www.conf with ours
 cp -f /config-files/www.conf /etc/php5/fpm/pool.d/www.conf
