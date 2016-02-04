@@ -1,16 +1,18 @@
 #!/bin/bash
 
+set -x
+
 # In PHP's www.conf, replace placeholders with actual environment variables
-sed -i 's/\$MYSQL_HOST/$MYSQL_HOST/g' www.conf
-sed -i 's/\$WP_DB_NAME/$WP_DB_NAME/g' www.conf
-sed -i 's/\$WP_DB_NAME/$WP_DB_NAME/g' www.conf
-sed -i 's/\$WP_DB_NAME/$WP_DB_NAME/g' www.conf
+sed -i "s/\$MYSQL_HOST/$MYSQL_HOST/g" www.conf
+sed -i "s/\$WP_DB_NAME/$WP_DB_NAME/g" www.conf
+sed -i "s/\$WP_DB_NAME/$WP_DB_USER_NAME/g" www.conf
+sed -i "s/\$WP_DB_NAME/$WP_DB_USER_PASSWORD/g" www.conf
 
 # Replace the default www.conf with ours
-\cp www.conf /etc/php5/fpm/pool.d/www.conf
+cp -f www.conf /etc/php5/fpm/pool.d/www.conf
 
 # Replace the default nginx site with ours
-\cp default-nginx /etc/nginx/sites-enabled/default
+cp -f default-nginx /etc/nginx/sites-enabled/default
 
 # Setting ownership of the files
 chown www-data:www-data /etc/php5/fpm/pool.d/www.conf
