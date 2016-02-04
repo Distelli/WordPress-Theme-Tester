@@ -13,22 +13,11 @@ RUN	apt-get update && \
 # Copy the WordPress files
 COPY ./wordpress/ /usr/share/nginx/html
 
-# Replace the nginx default site with the one we created
-COPY default-nginx /etc/nginx/sites-enabled/default
-
-# Replace the default PHP5-FPM config with one that we created, which passes the environment variables
-COPY www.conf /etc/php5/fpm/pool.d/www.conf
-
-# Remove the nginx default HTML file and telling php.ini to check environment variables
-# Also letting www-data own the php conf
-RUN	rm /usr/share/nginx/html/index.html && \
-			sed -i 's/"GPCS"/"EGPCS"/g' /etc/php5/fpm/php.ini && \
-			chown www-data:www-data /etc/php5/fpm/pool.d/www.conf && \
-			chown -R www-data:www-data /usr/share/nginx/html
+# Copy the config-files folder, which has the start script, and the
+COPY ./config-files /config-files
 
 # Making the container’s port 80 available to the host
 EXPOSE 80
 
-# Starting Nginx and PHP
-# We’re running Nginx in the foreground, so the container stays running
-CMD service php5-fpm start && nginx -g 'daemon off;'
+# Call the start script
+CMD ["/bin/bash", "/config-files/start.sh"]
