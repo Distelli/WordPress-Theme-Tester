@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -x
 
 # In PHP's www.conf, replace placeholders with actual environment variables
