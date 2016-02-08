@@ -20,5 +20,5 @@ chown -Rf www-data:www-data /usr/share/nginx/html
 # Removing the default index.html
 rm /usr/share/nginx/html/index.html
 
-# Starting PHP and Nginx
+# Starting PHP and Nginx. Nginx needs to start in the foreground, to keep the Docker container running
 service php5-fpm start && nginx -g 'daemon off;'
