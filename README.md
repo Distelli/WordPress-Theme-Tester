@@ -1,6 +1,6 @@
 # The WordPress Theme Tester
 
-For a full tutorial, see [tutorial link].
+For a full tutorial, see http://www.blog.distelli.com/single-post/2016/01/28/Previewing-WordPress-themes-with-Distelli-and-Docker.
 
 **Disclaimer**: This project is a proof of concept, and not an official Distelli application.
 
